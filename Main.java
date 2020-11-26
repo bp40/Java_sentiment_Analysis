@@ -10,6 +10,8 @@ class Main {
   public static ArrayList<String> text = new ArrayList<String>();
 
   public static void main(String[] args){
+    System.out.println("\033[H\033[2J"); //clears the screen
+    System.out.println("Program is starting..."); //text baseline debug
     
     crawler.crawl("https://forums.macrumors.com/forums/macos-big-sur-11-0.226/","https://forums.macrumors.com", "div.structItem-title a[href]" ,urls);
     
@@ -18,7 +20,7 @@ class Main {
     }
     wordprocess.clean(crawler.getMessages());
 
-    System.out.println("\n\nThe program ran, but did it work?");
+    System.out.println("\033[0;32m" + "\n\nCOMPLETE : The program ran til the end, but did it work?"); //text baseline debug
   }
   
 }

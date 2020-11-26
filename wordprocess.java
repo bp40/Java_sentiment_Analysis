@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 public class wordprocess{
   public static void clean(ArrayList<String> txt){
     for (int i = txt.size()-1; i >= 0; i-- ){
-      txt.set(i, txt.get(i).replaceAll("[^\\x41-\\x7A]", ""));
+      txt.set(i, txt.get(i).replaceAll("[^\\x41-\\x7A]", "")); //cleans weird characters
     }
 
     try{
@@ -16,12 +16,13 @@ public class wordprocess{
       File stopWords = new File("stopwords.txt");
       Iterator<String> it = txt.iterator();
 
+      //cleans stopwords
       while(it.hasNext()){
         String i = it.next();
         Scanner fileScan = new Scanner(stopWords);
         fileScan.useDelimiter(",");
         while(fileScan.hasNext()){
-          if(i.equalsIgnoreCase(fileScan.next())){
+          if(i.equalsIgnoreCase(fileScan.next()) || i.contains("\\") || i.contains("_") || i.contains("[") || i.contains("]")){
            it.remove();
            break;
           }
@@ -29,8 +30,9 @@ public class wordprocess{
         fileScan.close();
       }
       
-      it = txt.iterator();
+      it = txt.iterator(); //resetting the iterator
 
+      //cleaning empty spaces caused by the removal of non ASCII characters
       while(it.hasNext()){
         String i = it.next();
         
