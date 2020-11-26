@@ -17,6 +17,8 @@ class Main {
       crawler.extractWords(urls.get(i), "div.bbWrapper",text);
     }
     wordprocess.clean(crawler.getMessages());
+
+    System.out.println("\n\nThe program ran, but did it work?");
   }
   
 }

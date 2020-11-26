@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 //use for cleaning
 public class wordprocess{
@@ -8,17 +11,40 @@ public class wordprocess{
       txt.set(i, txt.get(i).replaceAll("[^\\x41-\\x7A]", ""));
     }
 
-    Iterator<String> it = txt.iterator();
-    while(it.hasNext()){
-      String i = it.next();
-      
+    try{
 
-      if(i.isBlank() || i.isEmpty()){
-        it.remove();
+      File stopWords = new File("stopwords.txt");
+      Iterator<String> it = txt.iterator();
+
+      while(it.hasNext()){
+        String i = it.next();
+        Scanner fileScan = new Scanner(stopWords);
+        fileScan.useDelimiter(",");
+        while(fileScan.hasNext()){
+          if(i.equalsIgnoreCase(fileScan.next())){
+           it.remove();
+           break;
+          }
+        }
+        fileScan.close();
       }
+      
+      it = txt.iterator();
+
+      while(it.hasNext()){
+        String i = it.next();
+        
+        if(i.isBlank() || i.isEmpty()){
+           it.remove();
+        }    
+      }
+    } catch(Exception e){
+      e.printStackTrace();
+    } finally {
+      System.out.println(txt);
     }
 
-    System.out.println(txt);
+    
 
     /*
     for(String words : txt){
