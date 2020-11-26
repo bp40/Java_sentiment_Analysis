@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +33,7 @@ class crawler {
 
             for (Element link: doc.select(htmlTag)) {
                 String text = link.text();
-                String[] arrSplit = text.split("[ -,|;:/?.]");
+                String[] arrSplit = text.split("[ ]");
 
                 for (int x = 0; x < arrSplit.length; x++) {
                     messages.add(arrSplit[x]);
@@ -41,6 +42,8 @@ class crawler {
 
         } catch (Exception except) {
             except.printStackTrace();
+        } finally {
+            messages.removeAll(Collections.singleton(null));
         }
     }
 
