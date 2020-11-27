@@ -1,4 +1,6 @@
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.AbstractMap.SimpleEntry; 
 import java.io.IOException;  
 import org.jsoup.Jsoup;  
 import org.jsoup.nodes.Document; 
@@ -8,7 +10,8 @@ class Main {
 
   public static ArrayList<String> urls = new ArrayList<String>();
   public static ArrayList<String> text = new ArrayList<String>();
-
+  public static ArrayList<AbstractMap.SimpleEntry<String, Integer> >  completeCount = new ArrayList<AbstractMap.SimpleEntry<String, Integer> >();
+      
   public static void main(String[] args){
     System.out.println("\033[H\033[2J"); //clears the screen
     System.out.println("Program is starting..."); //text baseline debug
@@ -18,7 +21,8 @@ class Main {
     for (int i = 0; i < urls.size(); i++){ 
       crawler.extractWords(urls.get(i), "div.bbWrapper",text);
     }
-    wordprocess.clean(crawler.getMessages());
+    
+    wordprocess.countWords(wordprocess.clean(crawler.getMessages()), completeCount);
 
     System.out.println("\033[0;32m" + "\n\nCOMPLETE : The program ran til the end, but did it work?"); //text baseline debug
   }

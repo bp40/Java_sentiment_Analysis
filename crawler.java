@@ -36,7 +36,7 @@ class crawler {
                 String[] arrSplit = text.split("[ ]");
 
                 for (int x = 0; x < arrSplit.length; x++) {
-                    messages.add(arrSplit[x]);
+                    messages.add(arrSplit[x].toLowerCase());
                 }
             }
 
