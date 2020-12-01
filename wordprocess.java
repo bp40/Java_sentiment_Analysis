@@ -1,8 +1,10 @@
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.AbstractMap.SimpleEntry; 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +30,7 @@ public class wordprocess {
         Scanner fileScan = new Scanner(stopWords);
         fileScan.useDelimiter(",");
         while (fileScan.hasNext()) {
-          if (i.equalsIgnoreCase(fileScan.next()) || i.contains("\\") || i.contains("_") || i.contains("[") ) {
+          if (i.equalsIgnoreCase(fileScan.next()) || i.contains("\\") || i.contains("_") || i.contains("[")) {
             it.remove();
             break;
           }
@@ -53,7 +55,7 @@ public class wordprocess {
     return txt;
   }
 
-  public static void countWords(ArrayList<String> txt, ArrayList<AbstractMap.SimpleEntry<String, Integer> > complete){
+  public static void countWords(ArrayList<String> txt, HashMap complete){
 
     int count = 0;
 
@@ -61,13 +63,16 @@ public class wordprocess {
          
     for(String word : txt){
       int frequency = Collections.frequency(txt, word);
-      complete.add(new AbstractMap.SimpleEntry<String,Integer>(word, frequency));
-      count++;
+      if(!complete.containsKey(word)){
+        complete.put(word, frequency);
+        count++;
+      }
     }       
 
-    for(int i = 0; i < count; i++){
-      //AbstractMap.SimpleEntry<String,Integer> map = complete.get(i);
-      System.out.println(complete.get(i).getKey() + ":" + complete.get(i).getValue());
+    Iterator mapIterate = complete.entrySet().iterator();
+    while(mapIterate.hasNext()) {
+      Map.Entry pair = (Map.Entry)mapIterate.next();
+      System.out.println(pair.getKey() + " = " + pair.getValue());
     }
 
     System.out.println("Total words : " + count);

@@ -1,6 +1,6 @@
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.AbstractMap.SimpleEntry; 
+import java.util.*; 
 import java.io.IOException;  
 import org.jsoup.Jsoup;  
 import org.jsoup.nodes.Document; 
@@ -10,7 +10,7 @@ class Main {
 
   public static ArrayList<String> urls = new ArrayList<String>();
   public static ArrayList<String> text = new ArrayList<String>();
-  public static ArrayList<AbstractMap.SimpleEntry<String, Integer> >  completeCount = new ArrayList<AbstractMap.SimpleEntry<String, Integer> >();
+  public static HashMap completeCount = new HashMap();
       
   public static void main(String[] args){
     System.out.println("\033[H\033[2J"); //clears the screen
